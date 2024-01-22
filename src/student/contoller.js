@@ -1,6 +1,7 @@
 const pool = require("../../db");
 const queries = require("./queries");
 const bcrypt = require("bcrypt");
+const crypto = require("crypto");
 
 const getStudents = (req, res) => {
   pool.query(queries.getStudents, (error, result) => {
@@ -14,6 +15,7 @@ const getStudents = (req, res) => {
 const addStudent = async (req, res) => {
   const { fullname, email, password, region, gender } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
+  const randomCertificatekKey = crypto.randomUUID();
   pool.query(queries.checkEmailExists, [email], (error, result) => {
     if (result.rows.length) {
       res.status(404).json("useralreadyexists");
@@ -22,7 +24,14 @@ const addStudent = async (req, res) => {
       // add student to db
       pool.query(
         queries.addStudent,
-        [fullname, email, hashedPassword, region, gender],
+        [
+          fullname,
+          email,
+          hashedPassword,
+          region,
+          gender,
+          randomCertificatekKey,
+        ],
         (error, result) => {
           if (error) throw error;
           res.status(201).json(result.rows[0]);

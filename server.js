@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const studentRoutes = require("./src/student/routes");
+const crypto = require("crypto");
 
 // ------------------------------------
 
@@ -21,5 +22,6 @@ app.get("/", (req, res) => {
 app.use("/api/v1/students", studentRoutes);
 
 app.listen(PORT, () => {
+  console.log(crypto.randomUUID());
   console.log(`Server running on port ${PORT}`);
 });
