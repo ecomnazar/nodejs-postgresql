@@ -14,7 +14,7 @@ const addStudent = (req, res) => {
   const { name, email, age, dob } = req.body;
   pool.query(queries.checkEmailExists, [email], (error, result) => {
     if (result.rows.length) {
-      res.send("Email already exists");
+      res.send("useralreadyexists");
     }
 
     // add student to db
