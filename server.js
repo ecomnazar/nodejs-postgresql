@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const studentRoutes = require("./src/student/routes");
 
 // ------------------------------------
