@@ -14,18 +14,18 @@ const addStudent = (req, res) => {
   const { fullname, email, password, region, gender } = req.body;
   pool.query(queries.checkEmailExists, [email], (error, result) => {
     if (result.rows.length) {
-      res.send("useralreadyexists");
+      res.status(404).json("useralreadyexists");
+    } else {
+      // add student to db
+      pool.query(
+        queries.addStudent,
+        [fullname, email, password, region, gender],
+        (error, result) => {
+          if (error) throw error;
+          res.status(201).send("Student added successfully");
+        }
+      );
     }
-
-    // add student to db
-    pool.query(
-      queries.addStudent,
-      [fullname, email, password, region, gender],
-      (error, result) => {
-        if (error) throw error;
-        res.status(201).send("Student added successfully");
-      }
-    );
   });
 };
 
