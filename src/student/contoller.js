@@ -11,17 +11,21 @@ const getStudents = (req, res) => {
 // ------------------------------------
 
 const addStudent = (req, res) => {
-  const { name, email, age, dob } = req.body;
+  const { fullname, email, password, region, gender } = req.body;
   pool.query(queries.checkEmailExists, [email], (error, result) => {
     if (result.rows.length) {
       res.send("useralreadyexists");
     }
 
     // add student to db
-    pool.query(queries.addStudent, [name, email, age, dob], (error, result) => {
-      if (error) throw error;
-      res.status(201).send("Student added successfully");
-    });
+    pool.query(
+      queries.addStudent,
+      [fullname, email, password, region, gender],
+      (error, result) => {
+        if (error) throw error;
+        res.status(201).send("Student added successfully");
+      }
+    );
   });
 };
 
