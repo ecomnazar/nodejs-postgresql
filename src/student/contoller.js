@@ -22,7 +22,7 @@ const addStudent = (req, res) => {
         [fullname, email, password, region, gender],
         (error, result) => {
           if (error) throw error;
-          res.status(201).send("Student added successfully");
+          res.status(201).json("Student added successfully");
         }
       );
     }
