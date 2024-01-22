@@ -13,7 +13,7 @@ const getStudents = (req, res) => {
 // ------------------------------------
 
 const addStudent = async (req, res) => {
-  const { fullname, email, password, region, gender } = req.body;
+  const { fullname, email, password, region, gender, date } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
   const randomCertificatekKey = crypto.randomUUID();
   pool.query(queries.checkEmailExists, [email], (error, result) => {
@@ -31,6 +31,7 @@ const addStudent = async (req, res) => {
           region,
           gender,
           randomCertificatekKey,
+          date,
         ],
         (error, result) => {
           if (error) throw error;
