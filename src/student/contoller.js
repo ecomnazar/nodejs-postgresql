@@ -106,7 +106,7 @@ const updateStudent = (req, res) => {
 
 // ------------------------------------
 
-const updateFinishDate = () => {
+const updateFinishDate = (req, res) => {
   const { email, date } = req.body;
   pool.query(queries.updateFinishDate, [date, email], (error, result) => {
     if (error) throw error;
