@@ -42,6 +42,8 @@ const addStudent = async (req, res) => {
   });
 };
 
+// ------------------------------------
+
 const loginStudent = async (req, res) => {
   const { email, password } = req.body;
   pool.query(queries.checkEmailExists, [email], async (error, result) => {
@@ -87,6 +89,8 @@ const removeStudent = (req, res) => {
   });
 };
 
+// ------------------------------------
+
 const updateStudent = (req, res) => {
   // const id = parseInt(req.params.id);
   const { fullname, email, region, gender } = req.body;
@@ -95,10 +99,19 @@ const updateStudent = (req, res) => {
     [fullname, email, region, gender],
     (error, result) => {
       if (error) throw error;
-      console.log(result);
       res.status(200).json(result.rows[0]);
     }
   );
+};
+
+// ------------------------------------
+
+const updateFinishDate = () => {
+  const { email, date } = req.body;
+  pool.query(queries.updateFinishDate, [date, email], (error, result) => {
+    if (error) throw error;
+    res.status(200).json(result.rows[0]);
+  });
 };
 
 module.exports = {
@@ -108,4 +121,5 @@ module.exports = {
   removeStudent,
   updateStudent,
   loginStudent,
+  updateFinishDate,
 };

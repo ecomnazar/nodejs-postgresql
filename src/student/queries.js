@@ -6,6 +6,8 @@ const addStudent =
 const removeStudent = "DELETE FROM users WHERE id = $1";
 const updateStudent =
   "UPDATE users SET fullname = $1, email = $2, region = $3, gender = $4 WHERE email = $2 RETURNING *";
+const updateFinishDate =
+  "UPDATE users SET finish_date = $1 WHERE email = $2 RETURNING *";
 
 module.exports = {
   getStudents,
@@ -14,4 +16,5 @@ module.exports = {
   addStudent,
   removeStudent,
   updateStudent,
+  updateFinishDate,
 };
