@@ -22,6 +22,5 @@ app.get("/", (req, res) => {
 app.use("/api/v1/students", studentRoutes);
 
 app.listen(PORT, () => {
-  console.log(crypto.randomUUID());
   console.log(`Server running on port ${PORT}`);
 });

@@ -42,6 +42,23 @@ const addStudent = async (req, res) => {
   });
 };
 
+const loginStudent = async (req, res) => {
+  const { email, password } = req.body;
+  pool.query(queries.checkEmailExists, [email], async (error, result) => {
+    if (result.rows.length) {
+      const match = await bcrypt.compare(password, result.rows[0].password);
+      if (match) {
+        res.status(200).json(result.rows[0]);
+      } else {
+        res.status(404).json("uncorrectpassword");
+      }
+    } else {
+      res.status(404).json("usernotfound");
+    }
+  });
+  // const encrypredPassword = await bcrypt.compare()
+};
+
 // ------------------------------------
 
 const getStudentById = (req, res) => {
@@ -91,4 +108,5 @@ module.exports = {
   addStudent,
   removeStudent,
   updateStudent,
+  loginStudent,
 };
