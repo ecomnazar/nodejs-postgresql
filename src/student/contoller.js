@@ -88,18 +88,17 @@ const removeStudent = (req, res) => {
 };
 
 const updateStudent = (req, res) => {
-  const id = parseInt(req.params.id);
-  const { name } = req.body;
-  pool.query(queries.getStudentById, [id], (error, result) => {
-    const noStudentFound = !result.rows.length;
-    if (noStudentFound) {
-      res.send("Student not found");
-    }
-    pool.query(queries.updateStudent, [name, id], (error, result) => {
+  // const id = parseInt(req.params.id);
+  const { fullname, email, region, gender } = req.body;
+  pool.query(
+    queries.updateStudent,
+    [fullname, email, region, gender],
+    (error, result) => {
       if (error) throw error;
-      res.status(200).send("Student updated successfully");
-    });
-  });
+      console.log(result);
+      res.status(200).json(result.rows[0]);
+    }
+  );
 };
 
 module.exports = {

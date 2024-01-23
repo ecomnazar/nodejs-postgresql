@@ -5,7 +5,7 @@ const router = Router();
 
 router.get("/", controller.getStudents);
 router.get("/:id", controller.getStudentById);
-router.put("/:id", controller.updateStudent);
+router.put("/update", controller.updateStudent);
 router.post("/", controller.addStudent);
 router.post("/login", controller.loginStudent);
 router.delete("/:id", controller.removeStudent);
