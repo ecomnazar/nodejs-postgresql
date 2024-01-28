@@ -3,6 +3,7 @@ const cors = require("cors");
 const studentRoutes = require("./src/student/routes");
 const dotenv = require("dotenv");
 const { certificateGenerate } = require("./src/certificateGenerator");
+const { mailSender } = require("./src/mailSender");
 
 // ------------------------------------
 
@@ -25,9 +26,18 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/students", studentRoutes);
 
-app.post("/api/v1/certificate", (req, res) => {
-  const { fullname, id } = req.body;
-  certificateGenerate();
+app.post("/api/v1/certificate", async (req, res) => {
+  const { fullname, id, mail } = req.body;
+  const fileName = new Date().getTime();
+
+  //
+
+  certificateGenerate(fullname, id, fileName);
+  setTimeout(() => {
+    mailSender(mail, fileName);
+  }, 5000);
+  //
+
   res.status(200).send({ fullname, id });
 });
 

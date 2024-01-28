@@ -1,7 +1,6 @@
 const sharp = require("sharp");
 
-exports.certificateGenerate = () => {
-  const fullname = "Nazar Jumayew Wepayewic";
+exports.certificateGenerate = async (fullname, id, fileName) => {
   const width = 2200;
   const height = 500;
 
@@ -29,12 +28,11 @@ exports.certificateGenerate = () => {
   const svgBuffer = Buffer.from(svgText);
   const dateBuffer = Buffer.from(dateText);
 
-  const date = new Date().getTime();
-  sharp("./images/certificate.png")
+  await sharp("./images/certificate.png")
     .composite([
       { input: svgBuffer, left: 130, top: 695 },
       { input: dateBuffer, left: 120, top: 1085 },
     ])
     // .composite([{ input: dateBuffer, left: 20, top: 450 }])
-    .toFile(__dirname + `/processed_images/${date}.png`);
+    .toFile(__dirname + `/processed_images/${fileName}.png`);
 };
