@@ -5,6 +5,7 @@ const fs = require("fs");
 // pass4: "yaaz myxy gdew nqnd"
 
 exports.mailSender = (mailAddress, fileName) => {
+  // exports.mailSender = (mailAddress, fileName) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.com",

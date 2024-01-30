@@ -29,16 +29,14 @@ app.use("/api/v1/students", studentRoutes);
 app.post("/api/v1/certificate", async (req, res) => {
   const { fullname, id, mail } = req.body;
   const fileName = new Date().getTime();
-
   //
-
   certificateGenerate(fullname, id, fileName);
   setTimeout(() => {
     mailSender(mail, fileName);
   }, 5000);
   //
 
-  res.status(200).send({ fullname, id });
+  res.status(200).send({ fullname, id, mail });
 });
 
 app.listen(PORT, () => {
