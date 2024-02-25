@@ -20,13 +20,13 @@ dotenv.config();
 
 // ------------------------------------
 
-app.get("/", (req, res) => {
+app.get("/backend", (req, res) => {
   res.send("Hello World!");
 });
 
-app.use("/api/v1/students", studentRoutes);
+app.use("/backend/api/v1/students", studentRoutes);
 
-app.post("/api/v1/certificate", async (req, res) => {
+app.post("/backend/api/v1/certificate", async (req, res) => {
   const { fullname, id, mail } = req.body;
   const fileName = new Date().getTime();
   //
@@ -40,5 +40,5 @@ app.post("/api/v1/certificate", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Run at port ${PORT}`);
 });
