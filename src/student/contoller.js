@@ -122,6 +122,18 @@ const updateFeedback = (req, res) => {
   });
 };
 
+const updateStudentDate = (req, res) => {
+  const { date, gender, email } = req.body;
+  pool.query(
+    queries.updateStudentDate,
+    [date, gender, email],
+    (error, result) => {
+      if (error) throw error;
+      res.status(200).json(result.rows[0]);
+    }
+  );
+};
+
 module.exports = {
   getStudents,
   getStudentById,
@@ -131,4 +143,5 @@ module.exports = {
   loginStudent,
   updateFinishDate,
   updateFeedback,
+  updateStudentDate,
 };

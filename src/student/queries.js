@@ -10,6 +10,8 @@ const updateFinishDate =
   "UPDATE users SET finish_date = $1 WHERE email = $2 RETURNING *";
 const updateFeedback =
   "UPDATE users SET feedback = $1 WHERE email = $2 RETURNING *";
+const updateStudentDate =
+  "UPDATE users SET date = $1, gender = $2 WHERE email = $3";
 
 module.exports = {
   getStudents,
@@ -20,4 +22,5 @@ module.exports = {
   updateStudent,
   updateFinishDate,
   updateFeedback,
+  updateStudentDate,
 };
